@@ -1,0 +1,9 @@
+# Set the default behavior to automatically normalize line endings
+* text=auto
+
+# Specify the text encoding for specific file types
+*.md text
+*.json text
+*.js text
+*.css text
+*.html text
