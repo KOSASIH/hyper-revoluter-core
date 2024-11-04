@@ -1,26 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import AuthService from '../services/AuthService';
-import './Dashboard.css'; // Import CSS for styling
+import { Line } from 'react-chartjs-2'; // Chart.js for data visualization
+import Notification from './Notification'; // Assume you have a Notification component
+import './Dashboard.css';
 
 const Dashboard = () => {
     const [userData, setUser Data] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [notifications, setNotifications] = useState([]);
+    const [chartData, setChartData] = useState({});
+
+    const fetchUser Data = useCallback(async () => {
+        try {
+            const data = await AuthService.getUser Data();
+            setUser Data(data);
+            setChartData(generateChartData(data.recentTransactions)); // Generate chart data
+        } catch (err) {
+            setError('Failed to load user data');
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
-        const fetchUser Data = async () => {
-            try {
-                const data = await AuthService.getUser Data(); // Fetch user data from your service
-                setUser Data(data);
-            } catch (err) {
-                setError('Failed to load user data');
-            } finally {
-                setLoading(false);
-            }
+        fetchUser Data();
+
+        // Set up WebSocket or polling for real-time updates
+        const socket = new WebSocket('wss://your-websocket-url'); // Replace with your WebSocket URL
+        socket.onmessage = (event) => {
+            const newNotification = JSON.parse(event.data);
+            setNotifications((prev) => [...prev, newNotification]);
+            fetchUser Data(); // Refresh user data on new notification
         };
 
-        fetchUser Data();
-    }, []);
+        return () => {
+            socket.close(); // Clean up on unmount
+        };
+    }, [fetchUser Data]);
+
+    const generateChartData = (transactions) => {
+        const labels = transactions.map(tx => new Date(tx.date).toLocaleDateString());
+        const data = transactions.map(tx => tx.amount); // Assuming transactions have an amount field
+
+        return {
+            labels,
+            datasets: [
+                {
+                    label: 'Transaction Amount Over Time',
+                    data,
+                    fill: false,
+                    backgroundColor: 'rgba(75,192,192,0.4)',
+                    borderColor: 'rgba(75,192,192,1)',
+                },
+            ],
+        };
+    };
 
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -47,15 +82,29 @@ const Dashboard = () => {
                     <p>{userData.recentTransactions.length} transactions</p>
                 </div>
             </div>
+            <div className="chart-container">
+                <h2>Transaction History</h2>
+                <Line data={chartData} />
+            </div>
             <div className="recent-activity">
                 <h2>Recent Activity</h2>
                 <ul>
                     {userData.recentTransactions.map((transaction, index) => (
                         <li key={index}>
-                            <span>{transaction.date}</span>: {transaction.description}
+                            <span>{new Date(transaction.date).toLocaleString()}</span>: {transaction.description}
                         </li>
                     ))}
                 </ul>
+            </div>
+            <div className="notifications">
+                <h2>Notifications</h2>
+                {notifications.length === 0 ? (
+                    <p>No new notifications</p>
+                ) : (
+                    notifications.map((notification, index) => (
+                        <Notification key={index} message={notification.message} />
+                    ))
+                )}
             </div>
         </div>
     );
