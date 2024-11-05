@@ -1,0 +1,21 @@
+// src/config/testing.json
+{
+    "port": 4000,
+    "db": {
+        "url": "mongodb://localhost:27017/myapp_test",
+        "options": {
+            "useNewUrlParser": true,
+            "useUnifiedTopology": true
+        }
+    },
+    "jwt": {
+        "secret": "test_secret_key",
+        "expiresIn": "1h"
+    },
+    "logging": {
+        "level": "silent"
+    },
+    "api": {
+        "baseUrl": "http://localhost:4000/api"
+    }
+}
