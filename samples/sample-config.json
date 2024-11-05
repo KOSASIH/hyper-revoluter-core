@@ -1,0 +1,29 @@
+{
+    "app": {
+        "name": "Hyper Revoluter Core",
+        "version": "1.0.0",
+        "environment": "development",
+        "port": 3000
+    },
+    "api": {
+        "baseUrl": "https://api.hyperrevoluter.com/v1",
+        "timeout": 5000,
+        "retryAttempts": 3
+    },
+    "database": {
+        "host": "localhost",
+        "port": 5432,
+        "username": "db_user",
+        "password": "secure_password",
+        "database": "hyper_revoluter_db"
+    },
+    "features": {
+        "enableFeatureX": true,
+        "enableFeatureY": false
+    },
+    "logging": {
+        "level": "info",
+        "logToFile": true,
+        "logFilePath": "./logs/app.log"
+    }
+}
