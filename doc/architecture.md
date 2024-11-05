@@ -4,7 +4,7 @@
 This document provides an overview of the system architecture for the Hyper Revoluter Core application.
 
 ## Architecture Diagram
-![Architecture Diagram](hyper-revokuter.jpeg)
+![Architecture Diagram](hyper-revoluter.jpeg)
 
 ## Components
 1. **Frontend**
