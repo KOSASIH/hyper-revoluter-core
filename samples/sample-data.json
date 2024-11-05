@@ -1,0 +1,51 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Alice Johnson",
+            "email": "alice.johnson@example.com",
+            "role": "admin",
+            "createdAt": "2023-01-15T10:00:00Z",
+            "isActive": true
+        },
+        {
+            "id": 2,
+            "name": "Bob Smith",
+            "email": "bob.smith@example.com",
+            "role": "user",
+            "createdAt": "2023-02-20T12:30:00Z",
+            "isActive": true
+        },
+        {
+            "id": 3,
+            "name": "Charlie Brown",
+            "email": "charlie.brown@example.com",
+            "role": "user",
+            "createdAt": "2023-03-05T09:15:00Z",
+            "isActive": false
+        }
+    ],
+    "products": [
+        {
+            "id": 101,
+            "name": "Hyper Widget",
+            "description": "A high-tech widget for all your needs.",
+            "price": 49.99,
+            "inStock": true
+        },
+        {
+            "id": 102,
+            "name": "Revoluter Pro",
+            "description": "The professional version of our flagship product.",
+            "price": 199.99,
+            "inStock": false
+        },
+        {
+            "id": 103,
+            "name": "Hyper Charger",
+            "description": "Fast charging solution for all devices.",
+            "price": 29.99,
+            "inStock": true
+        }
+    ]
+}
