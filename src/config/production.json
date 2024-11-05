@@ -1,0 +1,21 @@
+// src/config/production.json
+{
+    "port": 8000,
+    "db": {
+        "url": "mongodb://username:password@production-db-host:27017/myapp_prod",
+        "options": {
+            "useNewUrlParser": true,
+            "useUnifiedTopology": true
+        }
+    },
+    "jwt": {
+        "secret": "prod_secret_key",
+        "expiresIn": "1h"
+    },
+    "logging": {
+        "level": "error"
+    },
+    "api": {
+        "baseUrl": "https://api.myapp.com"
+    }
+}
