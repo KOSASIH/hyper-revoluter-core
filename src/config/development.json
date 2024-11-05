@@ -1,0 +1,21 @@
+// src/config/development.json
+{
+    "port": 3000,
+    "db": {
+        "url": "mongodb://localhost:27017/myapp_dev",
+        "options": {
+            "useNewUrlParser": true,
+            "useUnifiedTopology": true
+        }
+    },
+    "jwt": {
+        "secret": "dev_secret_key",
+        "expiresIn": "1h"
+    },
+    "logging": {
+        "level": "debug"
+    },
+    "api": {
+        "baseUrl": "http://localhost:3000/api"
+    }
+}
